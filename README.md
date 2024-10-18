@@ -15,18 +15,18 @@ Terminal ttl clock, including customizable clock timer and stopwatch
 # Contents
 
 - [Install](#install)
-- [Setting](#setting)
-  * [**Color**](#--color--)
-  * [**Date format**](#--date-format--)
-  * [**12-hour format**](#--12-hour-format--)
-  * [**Timer duration format**](#--timer-duration-format--)
+- [Setting](#settings)
+  * [**Color**](#color)
+  * [**Date format**](#date-format)
+  * [**12-hour format**](#12-hour-format)
+  * [**Timer duration format**](#timer-duration-format)
 
 # Install
 
 See [release](https://github.com/mdouchement/tmlshock/releases)
 or run `go install github.com/mdouchement/tmlshock/v2@latest`.
 
-# Setting
+# Settings
 
 ## **Color**
 
