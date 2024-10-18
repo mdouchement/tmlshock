@@ -1,112 +1,43 @@
+This a hard fork of [tmlshock](https://github.com/yorukot/tmlshock) which supports 24-bit (RGB) colors.\
+It started by a simple fix which evolves in playing around [bubbletea](https://github.com/charmbracelet/bubbletea) and [lipgloss](https://github.com/charmbracelet/lipgloss).
+
+It happens that bubbletea/lipgloss are easier to use than `github.com/nsf/termbox-go` but with lesser perforrmance when displaying millisecond (some tearing appears).\
+As a result in this fork the Timer & Stopwatch only display decisecond which is quick enough for human.
+
 ## About tmlshock
 Terminal ttl clock, including customizable clock timer and stopwatch
 
-![feature](https://github.com/MHNightCat/tmlshock/blob/main/img/feature.png)
+![feature](/.resources/feature.png)
+
+> [!NOTE]
+> This image comes from the command `zellij -l .resources/zellij_tmlshock.layout.kdl`
 
 # Contents
-* [Install](#install)
-* [Usage](#Usage)
-  * [Clock](#clock)
-  * [Stopwatch](#stopwatch)
-  * [Timer](#timer)
-* [Setting](#setting)
-  * [Color](#color)
-    * [Colon color](#colon-color)
-  * [Disable second](#disable-second)
-  * [Enable date](#enable-date)
-  * [Date formate](#date-formate)
-  * [Disable hour](#disable-hour)
-  * [12 hours format](#12-hours-format)
+
+- [Install](#install)
+- [Setting](#setting)
+  * [**Color**](#--color--)
+  * [**Date format**](#--date-format--)
+  * [**12-hour format**](#--12-hour-format--)
+  * [**Timer duration format**](#--timer-duration-format--)
+
 # Install
 
-see [release](https://github.com/MHNightCat/tmlshock/releases)
-
-download tmlshock file and move it to /usr/local/bin
-
-```bash
-sudo mv ./tmlshock /usr/local/bin
-```
-
-# Usage
-```
-COMMANDS:
-   stopwatch, s  Start a stopwatch
-   timer, t      Start a timer
-   clock, c      Start a clock
-   help, h       Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --color value, -c value  Set the string color see full color in
-   --help, -h               show help
-   --version, -v            print the version
-```
-
-## Clock
-```
-NAME:
-   tmlshock clock - Start a clock
-
-USAGE:
-   tmlshock clock [command options] [arguments...]
-
-OPTIONS:
-   --color value, -c value                Set the string color
-   --second value, -s value, --sec value  Set the clock with second(true or false) (default: "true")
-   --date value, -d value                 Set the clock with date(true or false) (default: "false")
-   --dateformate value, --df value        Set the clock date formate (default: "2006/02/01")
-   --colon-color value, --cc value        Set the colon color 
-   --hour-format value, --hf value        Set the clock 24 hr or 12hr (type 24 or 12)
-   --help, -h                             show help
-```
-
-## Stopwatch
-```
-USAGE:
-   tmlshock stopwatch [command options] [arguments...]
-
-OPTIONS:
-   --color value, -c value           Set the string color 
-   --disable-hour value, --dh value  Disable hour(true or false)
-   --colon-color value, --cc value   Set the colon color 
-   --help, -h                        show help
-```
-
-## Timer
-```
-USAGE:
-   tmlshock timer [command options] [arguments...]
-
-OPTIONS:
-   --color value, -c value                Set the string color 
-   --hour value, --hr value               Enter how many hours you want to count down
-   --minute value, -m value, --min value  Enter how many minunts you want to count down
-   --second value, -s value, --sec value  Enter how many seconds you want to count down
-   --time value, -t value                 Enter how many time you want to count down(format: 00:00:00)
-   --disable-hour value, --dh value       Disable hour(true or false)
-   --colon-color value, --cc value        Set the colon color 
-   --help, -h                             show help
-```
-
-#### **Example**
-You can set the timer time using two types
-
-classic:
-```bash
-tmlshock timer -hr 1 -m 1 -s 1
-```
-
-lazy:
-```bash
-tmlshock timer -t 1:20:01
-```
+See [release](https://github.com/mdouchement/tmlshock/releases)
+or run `go install github.com/mdouchement/tmlshock/v2@latest`.
 
 # Setting
 
 ## **Color**
 
-You can use color codes (down below) or use color names
+You can use color codes (down below), use color names or hex color codes
 
-![color](https://github.com/MHNightCat/tmlshock/blob/main/img/color.png)
+> [!NOTE]
+> Hexa color need a compatible terminal\
+> - alacritty, foot, iTerm, kitty, Konsole, st, tmux, vte-based, wezterm, Ghostty, Windows Terminal\
+> - See https://github.com/muesli/termenv/tree/master?tab=readme-ov-file#color-support
+
+![color](/.resources/color.png)
 
 ```
 black
@@ -124,7 +55,6 @@ light-yellow
 magenta
 light-red
 light-yellow
-magenta
 red
 white
 yellow
@@ -133,81 +63,43 @@ yellow
 Example:
 ```bash
 tmlshock clock -c red
+tmlshock clock -c 1
+tmlshock clock -c ff0000
 ```
-![red-clock](https://github.com/MHNightCat/tmlshock/blob/main/img/red-clock.png)
 
-### **Colon-color**
+## **Date format**
 
-To use a custom colon color just enter `-cc color`
+tmlshock uses Golang's [time format](https://pkg.go.dev/time#pkg-constants)
+
+To use a custom date format just enter `-l 02/01/2006`(DD/MM/YYYY)
 
 **Example**
 ```bash
-tmlshock clock -cc color
+tmlshock clock -d -l 02/01/2006
 ```
 
-![custom-colon-color](https://github.com/MHNightCat/tmlshock/blob/main/img/custom-colon-color.png)
+## **12-hour format**
 
-## **Disable-second**
+> [!NOTE]
+> This option only for clock.
 
-To disable the second just enter `-s false`
+To use a 12-hour format just enter `-H`
 
 **Example**
 ```bash
-tmlshock clock -s false
+tmlshock clock -H
 ```
 
-![no-sec-clock](https://github.com/MHNightCat/tmlshock/blob/main/img/no-sec-clock.png)
+## **Timer duration format**
 
-## **Enable-date**
+> [!NOTE]
+> This option only for timer.
 
-To enable the date just enter `-d true`
+tmlshock uses Golang's [duration](https://pkg.go.dev/time#ParseDuration) format.
 
 **Example**
 ```bash
-tmlshock clock -d true
-```
-
-![date-clock](https://github.com/MHNightCat/tmlshock/blob/main/img/date-clock.png)
-
-## **Date-formate**
-
-To use a custom date format just enter `-df 2006/02/01`(YYYY/MM/DD)
-
-**Example**
-```bash
-tmlshock clock -d true -df 2006/01/02 
-```
-(YYYY/DD/MM)
-
-![date-format-clock](https://github.com/MHNightCat/tmlshock/blob/main/img/date-format-clock.png)
-
-```bash
-tmlshock clock -d true -df 02/01/2006
-```
-(MM/DD/YYYY)
-
-![date-format-2-clock](https://github.com/MHNightCat/tmlshock/blob/main/img/date-format-2-clock.png)
-
-## **Disable-hour**
-
-* This option only for stopwatch and timer
-
-To use a custom date format just enter `-dh true`(YYYY/MM/DD)
-
-**Example**
-```bash
-tmlshock stopwatch -dh true
-```
-
-![disable-hour-stopwatch](https://github.com/MHNightCat/tmlshock/blob/main/img/disable-hour-stopwatch.png)
-
-## **12-hours-format**
-
-* This option only for clock
-
-To use a custom date format just enter `-hf 12`(YYYY/MM/DD)
-
-**Example**
-```bash
-tmlshock clock -hf 12
+tmlshock timer 4h42m10s
+tmlshock timer 2m
+tmlshock timer 1h4s
 ```

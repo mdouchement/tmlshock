@@ -1,0 +1,50 @@
+layout {
+    // Row #01
+    pane split_direction="vertical" {
+        pane command="tmlshock" {
+          args "clock"
+        }
+        pane command="tmlshock" {
+          args "timer" "1h42m"
+        }
+        pane command="tmlshock" {
+          args "stopwatch"
+        }
+    }
+    // Row #02
+    pane split_direction="vertical" {
+        pane command="tmlshock" {
+          args "clock" "-d"
+        }
+        pane command="tmlshock" {
+          args "timer" "1h42m" "-H"
+        }
+        pane command="tmlshock" {
+          args "stopwatch" "-H"
+        }
+    }
+    // Row #03
+    pane split_direction="vertical" {
+        pane command="tmlshock" {
+          args "clock" "-d" "-l" "02/01/2006" "-s" "-H"
+        }
+        pane command="tmlshock" {
+          args "timer" "1h42m" "-d"
+        }
+        pane command="tmlshock" {
+          args "stopwatch" "-d"
+        }
+    }
+    // Row #04
+    pane split_direction="vertical" {
+        pane command="tmlshock" {
+          args "clock" "-d" "-s" "-c" "1E7FCB" "-C" "2"
+        }
+        pane command="tmlshock" {
+          args "timer" "1h42m" "-d" "-c" "74D0F1" "-C" "10"
+        }
+        pane command="tmlshock" {
+          args "stopwatch" "-d" "-c" "0095B6" "-C" "00ff00"
+        }
+    }
+}
