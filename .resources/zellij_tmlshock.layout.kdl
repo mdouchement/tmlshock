@@ -38,7 +38,7 @@ layout {
     // Row #04
     pane split_direction="vertical" {
         pane command="tmlshock" {
-          args "clock" "-d" "-s" "-c" "1E7FCB" "-C" "2"
+          args "clock" "-d" "-s" "-c" "1E7FCB" "-C" "2" "-z" "Asia/Tokyo"
         }
         pane command="tmlshock" {
           args "timer" "1h42m" "-d" "-c" "74D0F1" "-C" "10"

@@ -1,6 +1,8 @@
 package tmlshock
 
 import (
+	"time"
+
 	"github.com/charmbracelet/lipgloss"
 	"github.com/mdouchement/tmlshock/v2/termdraw"
 )
@@ -9,6 +11,7 @@ type (
 	ClockOption func(*cOption)
 
 	cOption struct {
+		timezone        *time.Location
 		color           lipgloss.TerminalColor
 		colonColor      lipgloss.TerminalColor
 		backgroundColor lipgloss.TerminalColor
@@ -21,12 +24,19 @@ type (
 
 func cOptionDefaults() *cOption {
 	return &cOption{
+		timezone:        time.Now().Location(),
 		color:           termdraw.FlagColor("red"),
 		colonColor:      termdraw.FlagColorUndefined,
 		backgroundColor: termdraw.FlagColorUndefined,
 		showSecond:      true,
 		showDate:        false,
 		dateLayout:      "2006/01/02",
+	}
+}
+
+func WithClockTimezone(tz *time.Location) ClockOption {
+	return func(o *cOption) {
+		o.timezone = tz
 	}
 }
 

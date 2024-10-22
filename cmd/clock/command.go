@@ -1,6 +1,8 @@
 package clock
 
 import (
+	"time"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/mdouchement/tmlshock/v2/tmlshock"
 	"github.com/spf13/cobra"
@@ -8,7 +10,9 @@ import (
 
 func Command() *cobra.Command {
 	var date, hour, second bool
-	var color, colonColor, layout string
+	var color, colonColor, layout, timezone string
+
+	local := time.Now().Location()
 
 	c := &cobra.Command{
 		Use:     "clock",
@@ -28,9 +32,15 @@ func Command() *cobra.Command {
 				options = append(options, tmlshock.WithClockColonColor(colonColor))
 			}
 
+			tz, err := time.LoadLocation(timezone)
+			if err != nil {
+				return err
+			}
+			options = append(options, tmlshock.WithClockTimezone(tz))
+
 			clock := tmlshock.NewClock(options...)
 			p := tea.NewProgram(clock, tea.WithAltScreen())
-			_, err := p.Run()
+			_, err = p.Run()
 			return err
 		},
 	}
@@ -42,5 +52,6 @@ func Command() *cobra.Command {
 	c.Flags().BoolVarP(&date, "date", "d", false, "Set the clock with date")
 	c.Flags().BoolVarP(&hour, "hour12", "H", false, "Set the clock in 12h display")
 	c.Flags().BoolVarP(&second, "no-second", "s", false, "Set the clock without second")
+	c.Flags().StringVarP(&timezone, "timezone", "z", local.String(), "Set the clock timezone")
 	return c
 }

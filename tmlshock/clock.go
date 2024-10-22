@@ -8,14 +8,6 @@ import (
 	"github.com/mdouchement/tmlshock/v2/termdraw"
 )
 
-// https://github.com/xaviergodart/sektron/blob/main/ui/font.go
-// https://github.com/cedricblondeau/world-cup-2022-cli-dashboard/blob/main/ui/bigtext/bigtext.go
-// https://github.com/cedricblondeau/world-cup-2022-cli-dashboard/blob/main/ui/flags/render.go
-// https://github.com/brianstrauch/solitaire-tui/tree/main
-// https://github.com/nimblebun/wordle-cli
-// https://github.com/satisfactorymodding/ficsit-cli  ===> don't know how it's done
-// https://github.com/jwr1/pixelstream
-
 type Clock struct {
 	opts   *cOption
 	font   *termdraw.ClockFont
@@ -75,7 +67,7 @@ func (c *Clock) View() string {
 		return "loading..."
 	}
 
-	formatted := FormatTime(c.time, c.opts.hour12)
+	formatted := FormatTime(c.time.In(c.opts.timezone), c.opts.hour12)
 	formatted = c.font.Format(formatted[:c.cut])
 	if c.opts.showDate {
 		date := c.time.Format(c.opts.dateLayout)
